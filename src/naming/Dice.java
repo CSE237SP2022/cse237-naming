@@ -3,35 +3,36 @@ package naming;
 public class Dice {
 
     public static void main(String[] args) {
-        int d = 4;
-        int r = 7;
+        int dice = 4;
+        int throwss = 7;
 
-        int[][] array = new int[r][d];
-        int[] f = new int[d * 6  - d];
+        int[][] rollTracker = new int[throwss][dice];
+        int[] rollFrequencyTable = new int[dice * 6];
 
-        int s = 0;
-        int yaht = 0;
-        for(int i = 0; i < d; i++) {
+        int sumOfThrow = 0;
+        int yahtzees = 0;
+        for(int i = 0; i < throwss; i++) {
+        	sumOfThrow = 0;
             System.out.print("Roll: ");
-            for(int j = 0; j < r; j++) {
-                int d2 = (int)(Math.random() * 7);
-                array[i][j] = d2;
-                s += d2;
-                System.out.print(d + " ");
+            for(int j = 0; j < dice; j++) {
+                int dieRoll = (int)(Math.random() * 6 + 1);
+                rollTracker[i][j] = dieRoll;
+                sumOfThrow += dieRoll;
+                System.out.print(dieRoll + " ");
             }
-            System.out.println(" Sum: " + s);
+            System.out.println(" Sum: " + sumOfThrow);
 
-            for(int j = 0; j < d; j++) {
-                if(array[i][j] == array[i][j+1]) {
-                    yaht++;
+            for(int j = 0; j < dice - 1; j++) {
+                if(rollTracker[i][j] == rollTracker[i][j+1]) {
+                    yahtzees++;
                 }
             }
-            f[s]++;
+            rollFrequencyTable[sumOfThrow]++;
         }
-        System.out.println("There were " + yaht + " yahtzees");
+        System.out.println("There were " + yahtzees + " yahtzees");
 
-        for(int i = 0; i < f.length; i++) {
-            System.out.println("Sum: " + i + " times: " + f[i]);
+        for(int i = 0; i < rollFrequencyTable.length; i++) {
+            System.out.println("Sum: " + i + " times: " + rollFrequencyTable[i]);
         }
 
     }
